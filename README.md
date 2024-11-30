@@ -1,34 +1,32 @@
 
-# Temporal Graph Representation Learning with Neighborhood Reasoning
+# Structure-Aware Model for Representation Learning on Temporal Graphs
 
-This repository is the official implementation of [Temporal Graph Representation Learning with Neighborhood Reasoning]. 
+This repository is the official implementation of [Structure-Aware Model for Representation Learning on Temporal Graphs]. 
 
 ## Requirements
 
-To install requirements:
+Python >= 3.8.0
 
-``conda env create -f environment.yaml
-``
-
-## Running
-
-To train and evaluate the model TGNR in the paper with default settings, run this command:
-
-``python main.py --dataset_name uci --negative_sample_strategy random --gpu 0
-``
+Pytorch >= 2.2.0
 
 ## Dataset
 
-- You can download processed datasets from [DGB](https://github.com/fpour/DGB). Please put the data into the processed\_data folder in the following format: /processed\_data/uci/ml\_uci.csv
-- Or you can use customized datasets. Please put *Your\_data* into the DG\_data folder in the following format: /DG\_data/*Your\_data*/*Your\_data*.csv. Then run preprocess_data.py in the processed\_data folder.
+- The dynamic graph datasets come from [Towards Better Evaluation for Dynamic Link Prediction](https://openreview.net/forum?id=1GVpwr2Tfdg), which can be download [here](https://zenodo.org/records/7213796#.Y1cO6y8r30o). Please put the datasets into the `DG_data` folder.
+- Please run `processed_data/preprocess_data.py` for pre-processing the datasets.
 
-## Results
 
-Our model achieves the following performance on the UCI dataset with five runs under transductive settings:
+## Running
 
-| TGNR | AP  | AUC |
-|:----:|:----------------:| :----------------: |
-|  UCI | 98.82 ± 0.02 %   | 98.70 ± 0.03 %     |
+To train the model STG in the paper with default settings, run this command:
+
+```
+python train_link_prediction.py --dataset_name wikipedia --num_neighbors 10 --num_filters 4 --gpu 0
+```
+To evaluate the model STG in the paper with different negative sampling strategies (random/historical/inductive), run this command:
+
+```
+python evaluate_link_prediction.py --dataset_name wikipedia --negative_sample_strategy historical --num_neighbors 10 --num_filters 4 --gpu 0
+```
 
 ## Acknowledgment
-We sincerely appreciate the authors of the open source codes and datasets used in our paper. They make this community wonderful.
+We sincerely appreciate the authors of the open-source codes and datasets. They make this community wonderful.
